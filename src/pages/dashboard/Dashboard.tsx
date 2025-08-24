@@ -6,6 +6,7 @@ import Button from "../../components/Button";
 import type { IUser } from "../../interfaces/IUser";
 import Pagination from "../../components/Pagination";
 import { useDashboard } from "./hooks/useDashboard";
+import ThemeToggle from "../../components/ThemeToggle";
 
 const Dashboard: React.FC = () => {
   const {
@@ -31,6 +32,8 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <ThemeToggle />
+
       {/* Header */}
       <header className="bg-card border-b border-border">
         <div className="container mx-auto px-4 py-4">
