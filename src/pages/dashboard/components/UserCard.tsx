@@ -29,7 +29,12 @@ const UserCard: React.FC<UserCardProps> = ({ user, onEdit, onDelete }) => {
           <h3 className="text-lg font-semibold text-card-foreground">
             {user.first_name} {user.last_name}
           </h3>
-          <p className="text-muted-foreground">{user.email}</p>
+          <p
+            className="text-muted-foreground"
+            data-testid={`user-${user.id}-email`}
+          >
+            {user.email}
+          </p>
           <p className="text-sm text-muted-foreground">ID: {user.id}</p>
         </div>
       </div>
