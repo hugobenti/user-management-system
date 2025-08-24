@@ -8,30 +8,33 @@ import SignIn from "./pages/auth/SignIn.tsx";
 import { UsersProvider } from "./context/UsersContext.tsx";
 import Dashboard from "./pages/dashboard/Dashboard.tsx";
 import AuthGuard from "./guards/AuthGuard.tsx";
+import { ThemeProvider } from "./context/ThemeContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <SessionProvider>
-      <BrowserRouter>
-        <div className="min-h-screen bg-background text-foreground">
-          <Routes>
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route
-              path="/dashboard"
-              element={
-                <UsersProvider>
-                  <AuthGuard>
-                    <Dashboard />
-                  </AuthGuard>
-                </UsersProvider>
-              }
-            />
+    <ThemeProvider>
+      <SessionProvider>
+        <BrowserRouter>
+          <div className="min-h-screen bg-background text-foreground">
+            <Routes>
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/signin" element={<SignIn />} />
+              <Route
+                path="/dashboard"
+                element={
+                  <UsersProvider>
+                    <AuthGuard>
+                      <Dashboard />
+                    </AuthGuard>
+                  </UsersProvider>
+                }
+              />
 
-            <Route path="/" element={<Navigate to="/signin" replace />} />
-          </Routes>
-        </div>
-      </BrowserRouter>
-    </SessionProvider>
+              <Route path="/" element={<Navigate to="/signin" replace />} />
+            </Routes>
+          </div>
+        </BrowserRouter>
+      </SessionProvider>
+    </ThemeProvider>
   </StrictMode>
 );
