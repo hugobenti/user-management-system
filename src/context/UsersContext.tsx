@@ -39,7 +39,6 @@ export const UsersProvider: React.FC<UsersProviderProps> = ({ children }) => {
   const pageSize = 6;
 
   const addUser = (userData: Omit<IUser, "id">) => {
-    console.log("addUser")
     setLoading(true);
     const newUser: IUser = {
       ...userData,
