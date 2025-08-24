@@ -1,5 +1,4 @@
 import axios, { type AxiosInstance } from "axios";
-import { useSession } from "../context/SessionContext";
 
 export interface ApiUser {
   id: number;
@@ -16,15 +15,21 @@ export interface UsersResponse {
   data: ApiUser[];
 }
 
-const token = localStorage.getItem("authToken");
-
 const api: AxiosInstance = axios.create({
   baseURL: "https://reqres.in/api",
   headers: {
     "Content-Type": "application/json",
-    "x-api-key": token,
   },
   timeout: 15_000,
+});
+
+// Interceptor to set the latest token for every request
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("authToken");
+  if (token) {
+    config.headers["x-api-key"] = token;
+  }
+  return config;
 });
 
 class UsersService {

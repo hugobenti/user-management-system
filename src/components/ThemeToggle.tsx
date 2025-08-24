@@ -40,6 +40,7 @@ const ThemeToggle: React.FC = () => {
     <Button
       variant="secondary"
       size="sm"
+      data-testid="theme-toggle-btn"
       onClick={toggleTheme}
       className="fixed top-4 right-4 z-40"
       aria-label={getNextThemeLabel()}

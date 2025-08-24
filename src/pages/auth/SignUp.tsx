@@ -76,6 +76,7 @@ const SignUp: React.FC = () => {
           <div className="grid grid-cols-2 gap-4">
             <Input
               id="first_name"
+              data-testid="signup-first-name-input"
               label="First Name"
               type="text"
               error={errors.first_name}
@@ -83,6 +84,7 @@ const SignUp: React.FC = () => {
             />
             <Input
               id="last_name"
+              data-testid="signup-last-name-input"
               label="Last Name"
               type="text"
               error={errors.last_name}
@@ -92,6 +94,7 @@ const SignUp: React.FC = () => {
 
           <Input
             id="email"
+            data-testid="signup-email-input"
             label="Email Address"
             type="email"
             error={errors.email}
@@ -100,6 +103,7 @@ const SignUp: React.FC = () => {
 
           <Input
             id="password"
+            data-testid="signup-password-input"
             label="Password"
             type="password"
             error={errors.password}
@@ -108,6 +112,7 @@ const SignUp: React.FC = () => {
 
           <Input
             id="confirmPassword"
+            data-testid="signup-confirm-password-input"
             label="Confirm Password"
             type="password"
             error={errors.confirmPassword}
@@ -122,6 +127,7 @@ const SignUp: React.FC = () => {
 
           <Button
             type="submit"
+            data-testid="signup-submit-btn"
             loading={loading}
             className="w-full"
             disabled={!isValid}

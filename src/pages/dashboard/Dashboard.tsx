@@ -66,7 +66,7 @@ const Dashboard: React.FC = () => {
                 Manage your users (6 per page)
               </p>
             </div>
-            <Button onClick={() => setIsCreateModalOpen(true)}>
+            <Button data-testid="add-user-btn" onClick={() => setIsCreateModalOpen(true)}>
               Add New User
             </Button>
           </div>
