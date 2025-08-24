@@ -2,35 +2,64 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Light (hex) — tons terrosos */
 :root {
-  --background: #ede8e0; /* lion 900 */
-  --foreground: #0d0e0a; /* ebony 100 */
+  --background: #ede8e0;
+  --foreground: #0d0e0a;
 
-  --card: #ede8e0; /* lion 900 */
-  --card-foreground: #0d0e0a; /* ebony 100 */
+  --card: #ede8e0;
+  --card-foreground: #0d0e0a;
 
-  --popover: #ede8e0; /* lion 900 */
-  --popover-foreground: #0d0e0a; /* ebony 100 */
+  --popover: #ede8e0;
+  --popover-foreground: #0d0e0a;
 
-  --primary: #582f0e; /* seal_brown 500 */
-  --primary-foreground: #ede8e0; /* lion 900 */
+  --primary: #582f0e;
+  --primary-foreground: #ede8e0;
 
-  --secondary: #7f4f24; /* russet 500 */
-  --secondary-foreground: #ede8e0; /* lion 900 */
+  --secondary: #7f4f24;
+  --secondary-foreground: #ede8e0;
 
-  --muted: #b6ad90; /* khaki 500 */
-  --muted-foreground: #343929; /* ebony 400 */
+  --muted: #b6ad90;
+  --muted-foreground: #343929;
 
-  --accent: #936639; /* raw_umber 500 */
-  --accent-foreground: #ede8e0; /* lion 900 */
+  --accent: #936639;
+  --accent-foreground: #ede8e0;
 
-  --destructive: #9f3519; /* seal_brown 600 */
-  --destructive-foreground: #edd8e0; /* lion 900 */
+  --destructive: #9f3519;
+  --destructive-foreground: #edd8e0;
 
-  --border: #c4cab1; /* reseda_green 800 */
-  --input: #c4cab1; /* reseda_green 800 */
+  --border: #c4cab1;
+  --input: #c4cab1;
 
-  --ring: #de7c2b; /* seal_brown 700 */
-  /* --radius permanece 0.5rem */
+  --ring: #de7c2b;
+}
+
+.dark {
+  --background: #0d0e0a;
+  --foreground: #ede8e0;
+
+  --card: #0d0e0a;
+  --card-foreground: #ede8e0;
+
+  --popover: #0d0e0a;
+  --popover-foreground: #ede8e0;
+
+  --primary: #de7c2b;
+  --primary-foreground: #0d0e0a;
+
+  --secondary: #b57033;
+  --secondary-foreground: #0d0e0a;
+
+  --muted: #343929;
+  --muted-foreground: #b6ad90;
+
+  --accent: #e0b793;
+  --accent-foreground: #0d0e0a;
+
+  --destructive: #de2b2b;
+  --destructive-foreground: #0d0e0a;
+
+  --border: #343929;
+  --input: #343929;
+
+  --ring: #7f4f24;
 }
