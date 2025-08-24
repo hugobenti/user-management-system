@@ -86,7 +86,6 @@ user-management-system/
 │   ├── hooks/              # Custom React hooks
 │   ├── interfaces/         # TypeScript interfaces (IUser, etc)
 │   ├── pages/
-│   │   ├── Welcome.tsx
 │   │   ├── auth/           # Auth pages (SignIn, SignUp)
 │   │   └── dashboard/      # Dashboard
 │   ├── services/           # API services (authService, usersService)
