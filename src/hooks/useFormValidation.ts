@@ -1,6 +1,5 @@
 import type React from "react"
-
-import { useState, useCallback } from "react"
+import { useState, useCallback, useMemo } from "react"
 
 export interface ValidationRule {
   required?: boolean
@@ -38,133 +37,122 @@ export interface UseFormValidationReturn {
   reset: () => void
 }
 
-const validateField = (value: string, rules: ValidationRule[], allValues: { [key: string]: string }): string | null => {
+const validateField = (
+  value: string,
+  rules: ValidationRule[],
+  allValues: { [key: string]: string },
+): string | null => {
   for (const rule of rules) {
-    if (rule.required && !value.trim()) {
-      return "This field is required"
-    }
-
-    if (rule.email && value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-      return "Please enter a valid email address"
-    }
-
-    if (rule.minLength && value.length < rule.minLength) {
-      return `Must be at least ${rule.minLength} characters`
-    }
-
-    if (rule.maxLength && value.length > rule.maxLength) {
-      return `Must be no more than ${rule.maxLength} characters`
-    }
-
-    if (rule.equals && value !== allValues[rule.equals]) {
-      return "Passwords do not match"
-    }
-
+    if (rule.required && !value.trim()) return "This field is required"
+    if (rule.email && value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return "Please enter a valid email address"
+    if (rule.minLength && value.length < rule.minLength) return `Must be at least ${rule.minLength} characters`
+    if (rule.maxLength && value.length > rule.maxLength) return `Must be no more than ${rule.maxLength} characters`
+    if (rule.equals && value !== allValues[rule.equals]) return "Passwords do not match"
     if (rule.custom) {
       const customError = rule.custom(value)
       if (customError) return customError
     }
   }
-
   return null
 }
 
 export const useFormValidation = (initialFields: { [key: string]: ValidationRule[] }): UseFormValidationReturn => {
   const [formState, setFormState] = useState<FormState>(() => {
     const state: FormState = {}
-    Object.keys(initialFields).forEach((field) => {
-      state[field] = {
-        value: "",
-        error: null,
-        touched: false,
-        rules: initialFields[field],
-      }
-    })
+    for (const field of Object.keys(initialFields)) {
+      state[field] = { value: "", error: null, touched: false, rules: initialFields[field] }
+    }
     return state
   })
 
-  const values = Object.keys(formState).reduce(
-    (acc, key) => {
-      acc[key] = formState[key].value
-      return acc
-    },
-    {} as { [key: string]: string },
+  const values = useMemo(
+    () =>
+      Object.keys(formState).reduce((acc, key) => {
+        acc[key] = formState[key].value
+        return acc
+      }, {} as Record<string, string>),
+    [formState],
   )
 
-  const errors = Object.keys(formState).reduce(
-    (acc, key) => {
-      acc[key] = formState[key].error
-      return acc
-    },
-    {} as { [key: string]: string | null },
+  const errors = useMemo(
+    () =>
+      Object.keys(formState).reduce((acc, key) => {
+        acc[key] = formState[key].error
+        return acc
+      }, {} as Record<string, string | null>),
+    [formState],
   )
 
-  const isValid = Object.values(formState).every((field) => !field.error && field.touched)
+  const isValid = useMemo(
+    () => {  return Object.values(formState).every((f) => !f.error ) && Object.values(formState).some((f) => f.touched )},
+    [formState],
+  )
 
   const register = useCallback(
-    (field: string, rules: ValidationRule[]) => {
+    (field: string, _rulesFromCall: ValidationRule[]) => {
+      const value = formState[field]?.value ?? ""
+
       return {
-        value: formState[field]?.value || "",
+        value,
         onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
           const newValue = e.target.value
-          setFormState((prev) => ({
-            ...prev,
-            [field]: {
-              ...prev[field],
-              value: newValue,
-              error: validateField(newValue, rules, values),
-            },
-          }))
+          setFormState((prev) => {
+            const current = prev[field] ?? { value: "", error: null, touched: false, rules: [] }
+            const nextValues: Record<string, string> = {}
+            for (const k of Object.keys(prev)) nextValues[k] = k === field ? newValue : prev[k].value
+            const nextError = validateField(newValue, current.rules, nextValues)
+
+            if (current.value === newValue && current.error === nextError) return prev
+
+            return {
+              ...prev,
+              [field]: { ...current, value: newValue, error: nextError },
+            }
+          })
         },
         onBlur: () => {
-          setFormState((prev) => ({
-            ...prev,
-            [field]: {
-              ...prev[field],
-              touched: true,
-            },
-          }))
+          setFormState((prev) => {
+            const current = prev[field]
+            if (!current || current.touched) return prev
+            return { ...prev, [field]: { ...current, touched: true } }
+          })
         },
       }
     },
-    [formState, values],
+    [formState],
   )
 
-  const setValue = useCallback(
-    (field: string, value: string) => {
-      setFormState((prev) => ({
-        ...prev,
-        [field]: {
-          ...prev[field],
-          value,
-          error: validateField(value, prev[field].rules, { ...values, [field]: value }),
-        },
-      }))
-    },
-    [values],
-  )
-
-  const reset = useCallback(() => {
+  const setValue = useCallback((field: string, value: string) => {
     setFormState((prev) => {
-      const newState: FormState = {}
-      Object.keys(prev).forEach((field) => {
-        newState[field] = {
-          ...prev[field],
-          value: "",
-          error: null,
-          touched: false,
-        }
-      })
-      return newState
+      const current = prev[field]
+      if (!current) return prev
+
+      const nextValues: Record<string, string> = {}
+      for (const k of Object.keys(prev)) nextValues[k] = k === field ? value : prev[k].value
+      const nextError = validateField(value, current.rules, nextValues)
+
+      if (current.value === value && current.error === nextError) return prev
+
+      return {
+        ...prev,
+        [field]: { ...current, value, error: nextError },
+      }
     })
   }, [])
 
-  return {
-    values,
-    errors,
-    isValid,
-    register,
-    setValue,
-    reset,
-  }
+  const reset = useCallback(() => {
+    setFormState((prev) => {
+      let changed = false
+      const next: FormState = {}
+      for (const k of Object.keys(prev)) {
+        const curr = prev[k]
+        const n = { ...curr, value: "", error: null, touched: false }
+        changed ||= curr.value !== "" || curr.error !== null || curr.touched !== false
+        next[k] = n
+      }
+      return changed ? next : prev
+    })
+  }, [])
+
+  return { values, errors, isValid, register, setValue, reset }
 }

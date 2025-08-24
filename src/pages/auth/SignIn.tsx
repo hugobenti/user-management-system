@@ -1,11 +1,11 @@
 import React, { useEffect } from "react"
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { useSession } from "../context/SessionContext"
-import Input from "../components/Input"
-import Button from "../components/Button"
-import { useFormValidation } from "../hooks/useFormValidation"
-import { authService } from "../services/authService"
+import { useSession } from "../../context/SessionContext"
+import Input from "../../components/Input"
+import Button from "../../components/Button"
+import { useFormValidation } from "../../hooks/useFormValidation"
+import { authService } from "../../services/authService"
 
 const SignIn: React.FC = () => {
   const navigate = useNavigate()
@@ -16,7 +16,7 @@ const SignIn: React.FC = () => {
   // Redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/welcome", { replace: true })
+      navigate("/dashboard", { replace: true })
     }
   }, [isAuthenticated, navigate])
 
@@ -43,7 +43,7 @@ const SignIn: React.FC = () => {
       })
 
       login(response.token, response.user)
-      navigate("/welcome", { replace: true })
+      navigate("/dashboard", { replace: true })
     } catch (err: any) {
       setError(err.message || "Sign in failed. Please check your credentials.")
     } finally {
