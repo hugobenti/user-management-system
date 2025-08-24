@@ -15,6 +15,16 @@ const UserCard: React.FC<UserCardProps> = ({ user, onEdit, onDelete }) => {
       data-testid="user-card"
     >
       <div className="flex items-center space-x-4">
+        {user.avatar && (
+          <img
+            src={
+              user.avatar ||
+              `/placeholder.svg?height=64&width=64&query=user avatar for ${user.first_name}`
+            }
+            alt={`${user.first_name} ${user.last_name}`}
+            className="w-16 h-16 rounded-full object-cover"
+          />
+        )}
         <div className="flex-1">
           <h3 className="text-lg font-semibold text-card-foreground">
             {user.first_name} {user.last_name}
