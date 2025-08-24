@@ -1,3 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Light (hex) — tons terrosos */
+:root {
+  --background: #ede8e0; /* lion 900 */
+  --foreground: #0d0e0a; /* ebony 100 */
+
+  --card: #ede8e0; /* lion 900 */
+  --card-foreground: #0d0e0a; /* ebony 100 */
+
+  --popover: #ede8e0; /* lion 900 */
+  --popover-foreground: #0d0e0a; /* ebony 100 */
+
+  --primary: #582f0e; /* seal_brown 500 */
+  --primary-foreground: #ede8e0; /* lion 900 */
+
+  --secondary: #7f4f24; /* russet 500 */
+  --secondary-foreground: #ede8e0; /* lion 900 */
+
+  --muted: #b6ad90; /* khaki 500 */
+  --muted-foreground: #343929; /* ebony 400 */
+
+  --accent: #936639; /* raw_umber 500 */
+  --accent-foreground: #ede8e0; /* lion 900 */
+
+  --destructive: #9f5519; /* seal_brown 600 */
+  --destructive-foreground: #ede8e0; /* lion 900 */
+
+  --border: #c4cab1; /* reseda_green 800 */
+  --input: #c4cab1; /* reseda_green 800 */
+
+  --ring: #de7c2b; /* seal_brown 700 */
+  /* --radius permanece 0.5rem */
+}
