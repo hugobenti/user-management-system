@@ -25,7 +25,6 @@ export interface ApiUser {
   email: string;
   first_name: string;
   last_name: string;
-  avatar: string;
 }
 
 class AuthService {
@@ -53,11 +52,10 @@ class AuthService {
       email: data.email,
     });
 
-    // Retorna um usuário mockado a partir do e-mail
     const user = {
       id: 1,
       email: data.email,
-      first_name: "Mock",
+      first_name: data.email,
       last_name: "User",
     };
 

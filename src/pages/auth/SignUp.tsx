@@ -1,11 +1,11 @@
 import React, { useEffect } from "react"
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { useFormValidation } from "../hooks/useFormValidation"
-import { useSession } from "../context/SessionContext"
-import Input from "../components/Input"
-import Button from "../components/Button"
-import { authService } from "../services/authService"
+import { useFormValidation } from "../../hooks/useFormValidation"
+import { useSession } from "../../context/SessionContext"
+import Input from "../../components/Input"
+import Button from "../../components/Button"
+import { authService } from "../../services/authService"
 
 const SignUp: React.FC = () => {
   const navigate = useNavigate()
@@ -16,7 +16,7 @@ const SignUp: React.FC = () => {
   // Redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/welcome", { replace: true })
+      navigate("/dashboard", { replace: true })
     }
   }, [isAuthenticated, navigate])
 
@@ -54,7 +54,7 @@ const SignUp: React.FC = () => {
       })
 
       login(response.token, response.user)
-      navigate("/welcome", { replace: true })
+      navigate("/dashboard", { replace: true })
     } catch (err: any) {
       setError(err.message || "Sign up failed. Please try again.")
     } finally {

@@ -1,7 +1,6 @@
 import type React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 import type { IUser } from "../interfaces/IUser";
-import { useNavigate } from "react-router-dom";
 
 interface SessionContextType {
   user: IUser | null;
