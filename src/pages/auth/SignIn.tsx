@@ -64,6 +64,7 @@ const SignIn: React.FC = () => {
         <form onSubmit={handleSubmit} className="space-y-6">
           <Input
             id="email"
+            data-testid="email-input"
             label="Email Address"
             type="email"
             error={errors.email}
@@ -72,6 +73,7 @@ const SignIn: React.FC = () => {
 
           <Input
             id="password"
+            data-testid="password-input"
             label="Password"
             type="password"
             error={errors.password}

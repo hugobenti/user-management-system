@@ -12,7 +12,7 @@ const UserCard: React.FC<UserCardProps> = ({ user, onEdit, onDelete }) => {
   return (
     <div
       className="bg-card border border-border rounded-lg p-6 space-y-4"
-      data-testid="user-card"
+      data-testid={`user-card-${user.id}`}
     >
       <div className="flex items-center space-x-4">
         {user.avatar && (

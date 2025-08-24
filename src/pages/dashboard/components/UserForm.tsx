@@ -53,6 +53,7 @@ const UserForm: React.FC<UserFormProps> = ({
       <div className="grid grid-cols-2 gap-4">
         <Input
           id="first_name"
+          data-testid="first-name-input"
           label="First Name"
           type="text"
           error={errors.first_name}
@@ -60,6 +61,7 @@ const UserForm: React.FC<UserFormProps> = ({
         />
         <Input
           id="last_name"
+          data-testid="last-name-input"
           label="Last Name"
           type="text"
           error={errors.last_name}
@@ -69,6 +71,7 @@ const UserForm: React.FC<UserFormProps> = ({
 
       <Input
         id="email"
+        data-testid="user-email-input"
         label="Email Address"
         type="email"
         error={errors.email}
@@ -77,6 +80,7 @@ const UserForm: React.FC<UserFormProps> = ({
       <div className="flex space-x-3 pt-4">
         <Button
           type="submit"
+          data-testid="submit-user-btn"
           loading={loading}
           disabled={!isValid}
           className="flex-1"
