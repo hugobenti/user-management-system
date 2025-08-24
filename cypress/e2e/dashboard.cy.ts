@@ -46,19 +46,18 @@ describe("Dashboard CRUD", () => {
   });
 
   it("should edit the first user", () => {
-    cy.get('[data-testid^="user-card-"]')
-      .first()
+    cy.get('[data-testid="user-card-1"]')
       .within(() => {
         cy.contains(/edit/i).click();
       });
-    cy.get('[data-testid="first-name-input"]').clear().type("Jane");
-    cy.get('[data-testid="last-name-input"]').clear().type("Smith");
+    cy.get('[data-testid="first-name-input"]').clear().type("Name");
+    cy.get('[data-testid="last-name-input"]').clear().type("Test");
     cy.get('[data-testid="user-email-input"]')
       .clear()
-      .type("jane.smith@example.com");
+      .type("test@example.com");
     cy.get('[data-testid="submit-user-btn"]').click();
-    cy.get('[data-testid^="user-1-email"]').within(() => {
-      cy.contains("jane.smith@example.com");
+    cy.get('[data-testid="user-1-email"]').within(() => {
+      cy.contains("test@example.com");
     });
   });
 
